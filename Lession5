@@ -1,0 +1,13 @@
+SQL
+create database lession5
+go
+use lession5 
+--tạo bảng sản phẩm: maSP, tenSP, mauSac, dungLuong, gia
+create table SanPham(
+    maSP int indentity(1,1) primary key,
+    tenSP nvarchar(50) not null,
+    mauSac nvarchar(10),
+    dungLuong int,
+    gia decimal not null default 10000000
+)
+select * from SanPham

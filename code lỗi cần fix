@@ -1,0 +1,65 @@
+create database Lab_3
+go
+use Lab_3
+
+create table NhanVien(
+	maNv varchar(10) primary key, 
+	tenNv nvarchar (50) not null,
+	Tuoi int ,
+	diaChi nvarchar (100)
+)
+
+insert into NhanVien (maNv, tenNv, Tuoi, diaChi)
+values ('M01', N'Nguyễn Văn A', 10, N'Nam Định'),
+('M02', N'Nguyễn Văn B', 22, N'Hà Nội'),
+('M03', N'Nguyễn Văn C', 22, N'Vĩnh Phúc'),
+('M04', N'Nguyễn Văn D', 25, N'Thái Bình'),
+('M05', N'Hoàng Văn C', 15, N'Hà Nội')
+
+select * from NhanVien
+
+select  tenNv,Tuoi
+from NhanVien
+where Tuoi >= 20
+--2
+select count(Tuoi)
+from NhanVien
+where Tuoi >= 20
+--3
+select *
+from NhanVien
+where diaChi = N'Hà Nội'
+--4
+select maNv, tenNv
+from NhanVien
+where maNv = 'M01'
+
+--tạo 1 dự án : mã dự án , tên dự án, ngày bắt đầu, ngày kết thúc
+create table DuAn(
+	maDuAn varchar (20) primary key,
+	tenDuAn nvarchar (70) not null,
+	ngayBatDau date ,
+	ngayKetThuc date
+)
+select * from DuAn
+insert into DuAn (maDuAn,tenDuAn,ngayBatDau,ngayKetThuc)
+values ('D01', N'Dự án 1', '20/10/2024', '01/11/2024'),
+('D02', N'Dự án 2', '25/11/2024', '01/12/2024'),
+('D03', N'Dự án 3', '10/12/2024', '01/01/2025'),
+('D04', N'Dự án 4', '20/01/2025', '01/02/2025'),
+('D05', N'Dự án 5', '20/10/2025', '01/03/2025')
+
+
+--nhân viên với dự án có mối quan hệ nhiều - nhiều
+--Tạo bảng trung gian PhanCongDA: ngayThamGia, soGio
+
+create table PhanCongDA
+(
+	maNv varchar(10),
+	maDuAn varchar (20),
+	ngayThamGia date,
+	soGio float,
+	foreign key (maNv) references NhanVien(maNv),
+	foreign key (maDuAn) references DuAn(maDuAn),
+	primary key (maNv, maDuAn)
+)
